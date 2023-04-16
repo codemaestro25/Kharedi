@@ -17,7 +17,7 @@ function App() {
         <Router>
           <Header />
           <Sidebar />
-
+          
           <Routes>
             <Route path = "/" element = {<Home />}/>
 
@@ -33,7 +33,7 @@ function App() {
 
 
           </Routes>
-          <Footer />
+          {/* <Footer /> */}
         </Router>
       </Provider>
     </div>

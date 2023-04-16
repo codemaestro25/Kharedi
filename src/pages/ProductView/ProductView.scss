@@ -1,4 +1,7 @@
 @import "../../App.scss";
+@import "~noty/src/noty.scss";
+@import "~noty/src/themes/mint.scss";
+
 
 .product-single{
     .product-single-content{
@@ -140,4 +143,11 @@
     &-blue{
         background-color: $clr-blue;
     }
+}
+.noty_theme__mint {
+    border-radius: 50px!important;
+    padding-left: 8px!important;
+    margin-top: 10vh!important;
+    
+    
 }

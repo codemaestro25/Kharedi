@@ -9,19 +9,26 @@ import {
 } from "../../store/productSlice";
 import { STATUS } from "../../utils/status";
 import Loader from "../../compnents/Loader/Loader";
-import { currency, formatPrice } from "../../utils/currency";
+import { formatPrice } from "../../utils/currency";
+import { addToCart } from "../../store/cartSlice";
+import Noty from "noty";
+
+
 function ProductView() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const product = useSelector(getSingleProduct);
+  const product = useSelector(getSingleProduct); // getting the product
   const productStatus = useSelector(getSingleProductStatus);
+  
+  // state management for the quqntity in the product view page
+  const [quantity, setQuantity] = useState(1);
+  // cart message
 
   // getting an individual product
   useEffect(() => {
     dispatch(fetchAsyncSingleProduct(id));
   }, []);
 
-  const [quantity, setQuantity] = useState(1);
 
   if (productStatus === STATUS.LOADING) {
     return <Loader />;
@@ -34,10 +41,22 @@ function ProductView() {
   }
   const decreaseQty = ()=> {
     setQuantity((prevQty)=>{
-      return prevQty===0? 0 : prevQty-1;
+      return prevQty===1? 1 : prevQty-1;
       
     })
   }
+
+  const addToCartHandler = (product) => {
+     let totalPrice = product?.price * quantity;
+     dispatch(addToCart({... product, quantity: quantity, totalPrice: totalPrice}));
+     new Noty({
+      type: 'info',
+      text: 'Added to cart successfully',
+      timeout: 2000,
+  }).show();
+    
+  }
+
   return (
     <main className="py-5 bg-whitesmoke">
       <div className="product-single">
@@ -117,7 +136,7 @@ function ProductView() {
 
                 </div>
                 <div className="btns flex justify-between my-6 ">
-                  <button className=" btn add-to-cart-btn "><i className="fas fa-shopping-cart"></i>
+                  <button className=" btn add-to-cart-btn " onClick={()=>addToCartHandler(product)}><i className="fas fa-shopping-cart"></i>
                 <span className="btn-text mx-2">
                   Add to Cart
                 </span>

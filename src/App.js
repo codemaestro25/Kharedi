@@ -20,7 +20,20 @@ function App() {
 
           <Routes>
             <Route path = "/" element = {<Home />}/>
+
+            <Route path = '/product/:id' element= {<ProductView />}/>
+
+            <Route path = '/category/:category' element= {<Category />}/>
+
+            <Route path = '/cart' element= {<Cart />}/>
+
+            {/* search product */}
+
+            <Route path = '/search/:searchTerm' element= {<Search />}/>
+
+
           </Routes>
+          <Footer />
         </Router>
       </Provider>
     </div>

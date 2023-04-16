@@ -18,8 +18,11 @@ function Home() {
   }, []);
 
   const products = useSelector(getAllProducts);
-  console.log(products);
+  
   const productStatus = useSelector(getAllProductsStatus);
+
+  let categoryOne = products.filter(product => product.category === categories[0])
+  let categoryTwo = products.filter(product => product.category === categories[1])
 
   return (
     <main>
@@ -33,7 +36,16 @@ function Home() {
                 <div className="title-md">
                   <h3>Product Collection</h3>
                 </div>
-                {productStatus=== STATUS.LOADING ? <Loader /> : <ProductList />}
+                {productStatus=== STATUS.LOADING ? <Loader /> : <ProductList products = {products} />}
+              </div>
+{/* classsifying using categories */}
+              <div className="categories-item">
+                <div className="title-md">
+                  <h3>
+                    {categories[1]}
+                  </h3>
+                </div>
+                {productStatus === STATUS.LOADING ? <Loader /> : <ProductList products={categoryTwo}/>}
               </div>
             </div>
           </div>

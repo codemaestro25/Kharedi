@@ -23,6 +23,8 @@ function Home() {
 
   let categoryOne = products.filter(product => product.category === categories[0])
   let categoryTwo = products.filter(product => product.category === categories[1])
+  let categoryThree = products.filter(product => product.category === categories[2])
+  let categoryFour = products.filter(product => product.category === categories[3])
 
   return (
     <main>
@@ -42,10 +44,34 @@ function Home() {
               <div className="categories-item">
                 <div className="title-md">
                   <h3>
+                    {categories[0]}
+                  </h3>
+                </div>
+                {productStatus === STATUS.LOADING ? <Loader /> : <ProductList products={categoryOne}/>}
+              </div>
+              <div className="categories-item">
+                <div className="title-md">
+                  <h3>
                     {categories[1]}
                   </h3>
                 </div>
                 {productStatus === STATUS.LOADING ? <Loader /> : <ProductList products={categoryTwo}/>}
+              </div>
+              <div className="categories-item">
+                <div className="title-md">
+                  <h3>
+                    {categories[2]}
+                  </h3>
+                </div>
+                {productStatus === STATUS.LOADING ? <Loader /> : <ProductList products={categoryThree}/>}
+              </div>
+              <div className="categories-item">
+                <div className="title-md">
+                  <h3>
+                    {categories[3]}
+                  </h3>
+                </div>
+                {productStatus === STATUS.LOADING ? <Loader /> : <ProductList products={categoryFour}/>}
               </div>
             </div>
           </div>

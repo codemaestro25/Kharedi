@@ -1,8 +1,14 @@
 @import "../../App.scss";
 
 .navbar{
+    background-color: $clr-blue;
     padding-top: 12px;
     padding-bottom: 12px;
+    padding-left: 12px;
+    padding-right: 40px;
+    .fa-cart-shopping{
+        color: $clr-white;
+    }
     .navbar-brand{
         font-size: 2.4rem;
     }
@@ -40,6 +46,16 @@
                 width: 60px;
                 height: 32px;
                 border-radius: 4px;
+                transition: $transition-ease;
+                &:hover{
+                    background-color: $clr-white;
+                    color: $clr-blue;
+                    border: 1px solid $clr-blue;
+                    .fa-magnifying-glass{
+                        
+                        color: $clr-blue;
+                    }
+                }
             }
 
             @media screen and (max-width: 576px){
@@ -97,5 +113,6 @@
         }
     }
 }
+
 
 

@@ -1,4 +1,4 @@
-import React , {useEffect} from "react";
+import React , {useEffect, useState} from "react";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch} from "react-redux";
@@ -13,6 +13,13 @@ function Navbar() {
   const categories = useSelector(getAllCategories);
   const cart = useSelector(getAllCarts);
   const itemCount = useSelector(getCartItemsCount);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+  }
 
   // to get the total cart items nad their total price exported from cartSlice
   useEffect(()=>{
@@ -35,8 +42,8 @@ function Navbar() {
       <div className="navbar-collapse w-100">
           <div className='navbar-search bg-white'>
             <div className='flex align-center'>
-              <input type = "text" className='form-control fs-14' placeholder='Your Desires'/>
-              <Link to = '' className='text-white search-btn flex align-center justify-center'>
+              <input type = "text" className='form-control fs-14' placeholder='Your Desires' onChange={(e)=> handleSearch(e)}/>
+              <Link to = {`search/${searchTerm}`} className='text-white search-btn flex align-center justify-center'>
                   <i className='fa fa-magnifying-glass'></i>
                 </Link>
             </div>
@@ -46,6 +53,19 @@ function Navbar() {
           </div>
 
           <div className="navbar-cart flex align-center">
+            <ul className='flex top-links align-end justify-end text-white mx-4'>
+                <li>
+                  <Link to = "login">
+                    <span className='top-link-itm-txt'>Login</span>
+                  </Link>
+                </li>
+                <li className='vert-line my-auto'></li>
+                <li>
+                  <Link to = "register">
+                    <span className='top-link-itm-txt'>Register</span>
+                  </Link>
+                </li>
+              </ul>
             <Link to = '/cart'className="cart-btn">
               <i className="fa-solid fa-cart-shopping"></i>
               <div className="cart-items-value">{itemCount}</div>

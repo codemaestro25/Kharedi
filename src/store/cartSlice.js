@@ -73,13 +73,13 @@ const cartSlice = createSlice({
                     let tempQty = item.quantity;
                     let tempTotalPrice = item.totalAmount;
 
-                    // for incrementing the cart
+                    // for incrementing the item in cart
                     if(action.payload.type === 'INC'){
                         tempQty++;
                         tempTotalPrice = tempQty * item.price;
                     }
 
-                    // for decrementing the cart 
+                    // for decrementing the item in cart 
                     if(action.payload.type == 'DEC'){
                         tempQty --;
                         if(tempQty<1){

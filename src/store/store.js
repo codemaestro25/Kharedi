@@ -4,12 +4,14 @@ import sidebarReducer from './sidebarSlice';
 import categoryReducer from './categorySlice'
 import productReducer from './productSlice';
 import cartReducer from './cartSlice'
+import paginationReducer from './paginationSlice'
 const store = configureStore({
     reducer:{
         sidebar: sidebarReducer,
         category : categoryReducer,
         product: productReducer,
-        cart : cartReducer
+        cart : cartReducer,
+        pagination : paginationReducer
     }
 });
 

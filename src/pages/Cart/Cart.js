@@ -1,24 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import "./Cart.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { shopping_cart, emptyCart } from "../../utils/images";
-import { Link } from "react-router-dom";
+import {emptyCart } from "../../utils/images";
 import { formatPrice } from "../../utils/currency";
 import {
   getAllCarts,
   removeFromCart,
   toggleCartQty,
-  clearCart,
-  getCartTotal,
-  getCartItemsCount,
+
 } from "../../store/cartSlice";
+
+
+import Pagination from "../../compnents/Pagination/Pagination";
 
 function Cart() {
   const dispatch = useDispatch();
-  const cart = useSelector(getAllCarts);
-  const { itemCount, totalAmount } = useSelector((state) => state.cart); //destructuring the itemcoutn and total price from the cart object
+  const data = useSelector(getAllCarts);
+  const { itemCount, totalAmount } = useSelector((state) => state.cart); //destructuring the itemcount and total price from the cart object
 
- 
+  // for pagination component
+  const [currentPage, setCurrentPage] = useState(1)
+   
+  const pageSize = 3
+
+  const indexOfLastRecord = currentPage * pageSize;
+  const indexOfFirstRecord = indexOfLastRecord - pageSize;
+  const cart = data.slice(indexOfFirstRecord, indexOfLastRecord); // for displaying the limited cart items on the page we have taken special var for the cart
+
+
+
 
   if (cart.length === 0) {
     return (
@@ -70,7 +80,7 @@ function Cart() {
                 return (
                   <div className="cart-ctr py-4" key={cartItem?.id}>
                     <div className="cart-ctd">
-                      <span className="cart-ctxt">{idx + 1}</span>
+                      <span className="cart-ctxt">{(idx-2)+currentPage*pageSize}</span>
                     </div>
                     <div className="cart-ctd">
                       <span className="cart-ctxt">{cartItem?.title}</span>
@@ -145,6 +155,7 @@ function Cart() {
             </div>
           </div>
           </div>
+          <Pagination totalResults={itemCount} pageSize={pageSize} currentPage={currentPage}  setCurrentPage={setCurrentPage}/>
         </div>
       </div>
     </div>
